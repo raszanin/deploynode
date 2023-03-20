@@ -20,12 +20,14 @@ app.post("/users", async (request, reply) => {
 
   const { name, email } = createUserSchema.parse(request.body);
 
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       name,
       email,
     },
   });
+
+  console.log(`User created: ${user.name}`);
 
   return reply.status(201).send();
 });
